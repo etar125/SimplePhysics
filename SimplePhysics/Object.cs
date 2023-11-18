@@ -13,16 +13,18 @@ namespace SimplePhysics
 		public Size Size;
 		public int Weight;
 		public Physics Main;
+		public string Name;
 		BackgroundWorker bw = new BackgroundWorker();
 		
 		public Object() { }
 		
-		public Object(Point loc, Size siz, int wei, Physics mai)
+		public Object(Point loc, Size siz, int wei, Physics mai, string nam)
 		{
 			Location = loc;
 			Size = siz;
 			Weight = wei;
 			Main = mai;
+			Name = nam;
 		}
 		
 		public void Gravity()
