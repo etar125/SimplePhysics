@@ -27,22 +27,26 @@ namespace SimplePhysics
 		
 		public void Gravity()
 		{
-			Location.Y++;
-			if(InterectsWithAny())
-				Location.Y--;
+			
+			Location.Y += 1;
+			if(InterectsWithAny()) {
+				Location.Y -= 1; Console.WriteLine("Minus");
+			}
 		}
 		
 		public void Start()
 		{
-			bw.DoWork += (object sender, DoWorkEventArgs e) =>
-			{
-				while(true)
+			if(Weight != 0) {
+				bw.DoWork += (object sender, DoWorkEventArgs e) =>
 				{
-					Gravity();
-					Thread.Sleep(10000 / Weight);
-				}
-			};
-			bw.RunWorkerAsync();
+					while(true)
+					{
+						Gravity();
+						Thread.Sleep(10000 / Weight);
+					}
+				};
+				bw.RunWorkerAsync();
+			}
 		}
 		
 		public void Stop() {
@@ -55,8 +59,10 @@ namespace SimplePhysics
 		
 		public bool InterectsWithAny() {
 			foreach(Object obj in Main.Scene) {
-				if(new Rectangle(Location, Size).IntersectsWith(new Rectangle(obj.Location, obj.Size)))
-					return true;
+				if(obj != (Object)this){
+					if(new Rectangle(Location, Size).IntersectsWith(new Rectangle(obj.Location, obj.Size)))
+						return true;
+				}
 			}
 			return false;
 		}
